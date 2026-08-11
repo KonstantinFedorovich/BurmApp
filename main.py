@@ -1,6 +1,5 @@
 import tkinter as tk
 import random
-
 result_procruta = []
 def procrut(stroki: int,stolbci: int):
     list_with_numbers=[random.random() for _ in range (stroki*stolbci)]
@@ -12,8 +11,24 @@ def procrut(stroki: int,stolbci: int):
 #stolbci=int(input())
 stroki=3;stolbci=3
 result=procrut(stroki,stolbci)
-for i in range(3):
+for i in range(stroki):
     print(result[i])
+combinations=2
+result_bool=False
+for a in range(combinations):
+    for b in result:
+        for c in range(stroki):
+            if b[c]>0.5:
+                result_bool=True
+            else:
+                result_bool=False
+if result_bool==True:
+    print("WIN")
+else:
+    print("LOSE")
+
+
+
 
 # root=tk.Tk()
 # root.title("Window")
