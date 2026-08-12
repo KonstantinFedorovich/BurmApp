@@ -3,9 +3,9 @@ from tkinter import ttk
 from PIL import Image, ImageTk
 import random
 import PIL
-result_procruta = []
 def procrut(stroki: int,stolbci: int):
-    list_with_numbers=[random.random() for _ in range (stroki*stolbci)]
+    new_lst=[]
+    result_procruta=[]
     for i in range(stroki):
             new_lst=[random.random() for _ in range(stolbci)]
             result_procruta.append(new_lst)
@@ -15,22 +15,24 @@ result=procrut(stroki,stolbci)
 for i in range(stroki):
     print(result[i])
 #combinations=2
+
 def check_combinations(result):
-    global result_bool
-    result_bool=False
     #1 combination(full row)
+    result_bool2 = False
     for b in result:
+        result_bool1 = True
         for c in range(stroki):
             if b[c]>0.5:
-                result_bool=True
+                result_bool1=result_bool1 and True
             else:
-                result_bool=False
+                result_bool1=False
+        result_bool2=result_bool1 or result_bool2
     ###!MAKE MORE COMBINATIONS(list of 30)!###
     #n combination (full axis)-negative
     # for d in range(len(result)):
     #     if result[0][d] and result[1][d] and result[2][d] > 0.5:
     #         result_bool=True
-    return result_bool
+    return result_bool2
 
 if check_combinations(result)==True:
     print("WIN")
@@ -46,7 +48,6 @@ root.geometry("800x600+350+100")#положение и размер окна
 root.resizable(False, False)#запрещаем расстягивать по ширине и высоте
 #root.minsize(200,150)   # минимальные размеры: ширина - 200, высота - 150
 #root.maxsize(400,300)   # максимальные размеры: ширина - 400, высота - 300 на будущее мин и макс размеры окна
-label=tk.Label(root, text="Hello,World!")
 root.title("BurmApp")
 
 #Иконка приложения
@@ -66,16 +67,30 @@ clicks = 0
 
 
 def click_button():#обработчик клика?
+    result=[]
     global clicks
     clicks += 1
     # изменяем текст на кнопке
-    btn["text"] = f"Played {clicks} games"
+    print(result)
+    result=procrut(3,3)
+    check_combinations(result)
+    print(result)
+    print(check_combinations(result))
+    for r in range(3):
+        for c in range(3):
+            label = tk.Label(text=f"{round(result[r][c],3)}")
+            label.grid(row=r, column=c)
+    result_final=""
+    if check_combinations(result):
+        result_final="WIN"
+    else:
+        result_final="LOSE"
+    btn["text"] = f"{result_final}"
 btn=tk.Button(text="Play",command=click_button)#создание кнопки с подкрученным обработчиком клика
 #btn = ttk.Button(text="Click Me", state=["disabled"]) #можно еще гасить кнопку через состояния state
-btn.pack()#Размещение кнопки
+btn.grid(row=3, column=0, ipadx=6, ipady=6, padx=5, pady=5)#Размещение кнопки
 
 
 
 
-label.pack()#текстовая метка
 root.mainloop()#метод для отображения окна для пользователя
