@@ -59,6 +59,19 @@ background=Image.open("background_grey.png")
 background_image=ImageTk.PhotoImage(background)
 label=tk.Label(root,image=background_image)
 label.place(x=0, y=0, relwidth=1, relheight=1)
+#фрукты
+slyva=Image.open("slyva.png")
+slyva_image=ImageTk.PhotoImage(slyva)
+yabloko=Image.open("yabloko.png")
+yabloko_image=ImageTk.PhotoImage(yabloko)
+vinograd=Image.open("vinograd.png")
+vinograd_image=ImageTk.PhotoImage(vinograd)
+banany=Image.open("banany.png")
+banany_image=ImageTk.PhotoImage(banany)
+award_coin=Image.open("award_coin.png")
+awward_coin_image=ImageTk.PhotoImage(award_coin)
+
+
 #начальный прокрут
 start_list=[]
 for c in range(3): root.columnconfigure(index=c, weight=1)
@@ -93,8 +106,22 @@ def click_button():#обработчик клика?
     for r in range(3): root.rowconfigure(index=r, weight=1)
     for r in range(3):
         for c in range(3):
-            label = tk.Label(text=f"{round(result[r][c],3)}")
-            label.grid(row=r, column=c)
+            if result[r][c]<=0.22:
+                label = tk.Label(image=slyva_image)
+                label.grid(row=r, column=c)
+            if result[r][c]>0.22 and result[r][c]<=0.44:
+                label = tk.Label(image=yabloko_image)
+                label.grid(row=r, column=c)
+            if result[r][c]>0.44 and result[r][c]<=0.66:
+                label = tk.Label(image=vinograd_image)
+                label.grid(row=r, column=c)
+            if result[r][c]>0.66 and result[r][c]<=0.88:
+                label = tk.Label(image=banany_image)
+                label.grid(row=r, column=c)
+            if result[r][c]>0.88:
+                label = tk.Label(image=award_coin_image)
+                label.grid(row=r, column=c)
+
     result_final=""
     if check_combinations(result):
         result_final="WIN"
