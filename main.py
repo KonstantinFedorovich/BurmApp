@@ -50,10 +50,26 @@ root.resizable(False, False)#запрещаем расстягивать по ш
 #root.maxsize(400,300)   # максимальные размеры: ширина - 400, высота - 300 на будущее мин и макс размеры окна
 root.title("BurmApp")
 
-#Иконка приложения
+#Иконка приложения и прочие картинки
 icon_image = Image.open("BurmAppIcon.png")
 tk_icon = ImageTk.PhotoImage(icon_image)
 root.iconphoto(True, tk_icon)
+
+background=Image.open("background_grey.png")
+background_image=ImageTk.PhotoImage(background)
+label=tk.Label(root,image=background_image)
+label.place(x=0, y=0, relwidth=1, relheight=1)
+#начальный прокрут
+start_list=[]
+for c in range(3): root.columnconfigure(index=c, weight=1)
+for r in range(3): root.rowconfigure(index=r, weight=1)
+for a in range(3):
+    new_lst=[random.random() for _ in range(stolbci)]
+    start_list.append(new_lst)
+for r in range(3):
+    for c in range(3):
+        label = tk.Label(text=f"{round(start_list[r][c],3)}")
+        label.grid(row=r, column=c)
 
 
 #ФУНКЦИОНАЛ И ВНУТРЕННИЙ ИНТЕРФЕЙС
@@ -71,11 +87,10 @@ def click_button():#обработчик клика?
     global clicks
     clicks += 1
     # изменяем текст на кнопке
-    print(result)
     result=procrut(3,3)
     check_combinations(result)
-    print(result)
-    print(check_combinations(result))
+    for c in range(3): root.columnconfigure(index=c, weight=1)
+    for r in range(3): root.rowconfigure(index=r, weight=1)
     for r in range(3):
         for c in range(3):
             label = tk.Label(text=f"{round(result[r][c],3)}")
@@ -88,7 +103,7 @@ def click_button():#обработчик клика?
     btn["text"] = f"{result_final}"
 btn=tk.Button(text="Play",command=click_button)#создание кнопки с подкрученным обработчиком клика
 #btn = ttk.Button(text="Click Me", state=["disabled"]) #можно еще гасить кнопку через состояния state
-btn.grid(row=3, column=0, ipadx=6, ipady=6, padx=5, pady=5)#Размещение кнопки
+btn.grid(row=3, column=1, ipadx=6, ipady=6, padx=5, pady=5)#Размещение кнопки
 
 
 
