@@ -21,11 +21,14 @@ def check_combinations(result):
     result_bool2 = False
     for b in result:
         result_bool1 = True
-        for c in range(stroki):
-            if b[c]>0.5:
-                result_bool1=result_bool1 and True
-            else:
-                result_bool1=False
+        if ((b[0]<=0.22 and b[1]<=0.22 and b[2]<=0.22)
+                or(b[0]>0.22 and b[0]<=0.44 and b[1]>0.22 and b[1]<=0.44 and b[2]>0.22 and b[2]<=0.44)
+                or(b[0]>0.44 and b[0]<=0.66 and b[1]>0.44 and b[1]<=0.66 and b[2]>0.44 and b[2]<=0.66)
+                or (b[0]>0.66 and b[0]<=0.88 and b[1]>0.66 and b[1]<=0.88 and b[2]>0.66 and b[2]<=0.88)
+                or (b[0]>0.88 and b[1]>0.88 and b[2]>0.88)):
+            result_bool1=result_bool1 and True
+        else:
+            result_bool1=False
         result_bool2=result_bool1 or result_bool2
     ###!MAKE MORE COMBINATIONS(list of 30)!###
     #n combination (full axis)-negative
@@ -69,7 +72,7 @@ vinograd_image=ImageTk.PhotoImage(vinograd)
 banany=Image.open("banany.png")
 banany_image=ImageTk.PhotoImage(banany)
 award_coin=Image.open("award_coin.png")
-awward_coin_image=ImageTk.PhotoImage(award_coin)
+award_coin_image=ImageTk.PhotoImage(award_coin)
 
 
 #начальный прокрут
