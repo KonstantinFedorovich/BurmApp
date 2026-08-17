@@ -2,7 +2,10 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import random
+import pygame
 import PIL
+
+
 def procrut(stroki: int,stolbci: int):
     new_lst=[]
     result_procruta=[]
@@ -75,6 +78,16 @@ award_coin=Image.open("award_coin.png")
 award_coin_image=ImageTk.PhotoImage(award_coin)
 
 
+#ЗВУК
+pygame.mixer.init()
+pygame.mixer.music.load("background_128k.ogg")#загрузка музыки
+pygame.mixer.music.set_volume(0.3) #громкость 30%
+pygame.mixer.music.play(-1) #зацикливание
+click_mp3=pygame.mixer.Sound("procrut.mp3")
+win_mp3=pygame.mixer.Sound("win.mp3")
+click_mp3.set_volume(0.5)
+win_mp3.set_volume(0.5)
+
 #начальный прокрут
 start_list=[]
 for c in range(3): root.columnconfigure(index=c, weight=1)
@@ -99,6 +112,7 @@ clicks = 0
 
 
 def click_button():#обработчик клика?
+    click_mp3.play()
     result=[]
     global clicks
     clicks += 1
@@ -128,6 +142,7 @@ def click_button():#обработчик клика?
     result_final=""
     if check_combinations(result):
         result_final="WIN"
+        win_mp3.play()
     else:
         result_final="LOSE"
     btn["text"] = f"{result_final}"
