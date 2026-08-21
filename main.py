@@ -5,7 +5,7 @@ import random
 import pygame
 import PIL
 
-
+balance=1000
 def procrut(stroki: int,stolbci: int):
     new_lst=[]
     result_procruta=[]
@@ -112,6 +112,8 @@ clicks = 0
 
 
 def click_button():#обработчик клика?
+    global balance
+    balance-=100
     click_mp3.play()
     result=[]
     global clicks
@@ -143,6 +145,7 @@ def click_button():#обработчик клика?
     if check_combinations(result):
         result_final="WIN"
         win_mp3.play()
+        balance+=1000
     else:
         result_final="LOSE"
     btn["text"] = f"{result_final}"
